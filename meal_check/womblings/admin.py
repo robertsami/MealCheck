@@ -6,7 +6,7 @@ class PermissionInline(admin.StackedInline):
 	max_num = 1
 
 class MemberAdmin(admin.ModelAdmin):
-	readonly_fields = ('puid',)
+	#readonly_fields = ('puid',)
 	inlines = [PermissionInline]
 	list_display = ('last_name', 'first_name', 'graduation_year')
 	search_fields = ['last_name']
