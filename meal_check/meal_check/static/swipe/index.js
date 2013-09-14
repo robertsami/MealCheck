@@ -1,7 +1,12 @@
+// house the current card reader input
 var currInput = "";
+// a regex to parse the card reader input seen thus far
 var re=/%\d{6}(\d{9})\d=(.*)\/(.*)\?;\d{6}\d{9}\d{4}=\?$/g;
+// this timer object sets off a timer from the last key stroke to clear the input
 var timer = $.timer(function() { currInput = "";});
 timer.set({ time: 500, autostart: false});
+
+var numSwipes = 0;
 
 $.fn.center = function () {
    this.css("position","absolute");
@@ -25,6 +30,12 @@ $(document).keypress(function(event) {
                 data: {first_name: m[2], last_name: m[3], puid: m[1]},
                 success: function(blurb) {
                     currInput="";
+                    $("body").add("<div class="card" id=swipe" + numSwipes + "> " + blurb + "</div>")
+                                .css("position","absolute")
+                                .css("top", ( $(window).height() - this.height() ) / 2  + "px")
+                                .css("left", -this.width() + "px");
+
+                    move("#swipe" + numSwipes).set("left", ( $(window).width() - this.width() ) / 2 + "px");
                     $("#b").text(blurb);
                 }
             });
