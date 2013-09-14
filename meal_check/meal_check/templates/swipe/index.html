@@ -1,20 +1,14 @@
 <html>
+  <head>
+    {% load staticfiles %}
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="{% static "swipe/jquery.timer.js" %}"></script>
+    <script type="text/javascript" src="{% static "swipe/move.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "swipe/index.js" %}"></script>
+  </head>
 
-<head>
-
-
-
-</head>
-
-<body>
-
-<p id="b"> --member status-- </p>
-{% load staticfiles %}
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
-<script type="text/javascript" src="{% static "swipe/jquery.timer.js" %}"></script>
-<script type="text/javascript" src="{% static "swipe/index.js" %}"></script>
-
-
-</body>
-
+  <body>
+    <div id="member_status"> --member status-- </div>
+    <div id="background"></div>
+  </body>
 </html>
