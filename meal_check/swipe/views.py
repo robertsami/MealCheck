@@ -10,3 +10,15 @@ def index(request):
         'members' : member_list,
     })
     return HttpResponse(template.render(context))
+
+def verify(request):
+    first_name = request.GET.get('first_name')
+    last_name = request.GET.get('last_name')
+    puid = request.GET.get('puid')
+    print puid
+
+    try:
+        print Member.objects.get(puid=puid)
+        return HttpResponse("is member")
+    except:
+        return HttpResponse("is not member")
