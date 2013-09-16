@@ -19,6 +19,6 @@ def verify(request):
 
     try:
         print Member.objects.get(puid=puid)
-        return HttpResponse("is member")
+        return HttpResponse("member")
     except:
-        return HttpResponse("is not member")
+        return HttpResponse("not member")

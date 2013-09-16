@@ -16,7 +16,8 @@ $.fn.center = function () {
 };
 
 $(document).ready( function () {
-    $("#member_status").center();
+    $("#swipe0").center();
+    $("#instructions").center();
 });
 
 $(document).keypress(function(event) {
@@ -30,13 +31,31 @@ $(document).keypress(function(event) {
                 data: {first_name: m[2], last_name: m[3], puid: m[1]},
                 success: function(blurb) {
                     currInput="";
-                    $("body").add("<div class="card" id=swipe" + numSwipes + "> " + blurb + "</div>")
-                                .css("position","absolute")
-                                .css("top", ( $(window).height() - this.height() ) / 2  + "px")
-                                .css("left", -this.width() + "px");
+                    $("#swipe" + numSwipes++).after('<div class="card" id="swipe' + numSwipes + '">' + blurb + '</div>');
+                    $("#swipe" + numSwipes).css("position","absolute")
+                    $("#swipe" + numSwipes).css("top", ( $(window).height() - $("#swipe" + numSwipes).height() ) / 2  + "px")
+                    $("#swipe" + numSwipes).css("left", (-1 * $("#swipe" + numSwipes).width()) + "px");
 
-                    move("#swipe" + numSwipes).set("left", ( $(window).width() - this.width() ) / 2 + "px");
+                    if (blurb == "member") {
+                        $("#swipe" + numSwipes).css("background-color", "#00FF00");
+                    }
+                    else if (blurb == "not member") {
+                        $("#swipe" + numSwipes).css("background-color", "#FF0000");
+                    }
+
+                    move("#swipe" + numSwipes)
+                        .set("left", ( $(window).width() - $("#swipe" + numSwipes).width() ) / 2 + "px")
+                        .end();
+
+                    $.timer(
+                            function() { 
+                                move("#swipe" + numSwipes).set("left", $(window).width() + "px").end(); 
+                            }
+                        )
+                        .set({ time: 5000, autostart: true});
+                    
                     $("#b").text(blurb);
+
                 }
             });
         }
