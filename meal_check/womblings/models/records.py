@@ -7,6 +7,9 @@ class Club(models.Model):
     class Meta:
         app_label = 'womblings'
 
+    def __unicode__(self):
+        return self.name
+
 class MealExchangeRecord(models.Model):
     club = models.ForeignKey(Club)
     guest_name = models.CharField(max_length=100)

@@ -9,9 +9,24 @@
   </head>
 
   <body>
-    <div id="background">
+    <div class="background">
         <div id="instructions"> swipe yo bitch ass card motherfucker </div>
     </div>
-    <div id="swipe0"></div>
+    <div class="card_container">
+      <div id="swipe0" class="card" style="border:0;background:none;z-index:1000;display:none;">
+        <button class="inputMore"> Guest </button>
+        <button class="inputMore"> Meal Exchange </button>
+        <form>
+          First name: <input id="first_name_in" type="text" name="first_name"/><br>
+          Last name: <input id="last_name_in" type="text" name="last_name"/>
+          Club:  
+          <select name="club"> 
+            {% for club in clubs %}
+              <option>{{ club }}</option>
+            {% endfor %}
+          </select>
+        </form>
+      </div>
+    </div>
   </body>
 </html>
