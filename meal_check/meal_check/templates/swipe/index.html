@@ -9,24 +9,39 @@
   </head>
 
   <body>
+    
     <div class="background">
-        <div id="instructions"> swipe yo bitch ass card motherfucker </div>
+        <div id="instructions"> Please swipe the card </div>
     </div>
+    
     <div class="card_container">
-      <div id="swipe0" class="card" style="border:0;background:none;z-index:1000;display:none;">
+
+      <div id="swipe0" class="card" style="border:0;background:none;z-index:100000000;display:none;">
+
         <button class="inputMore"> Guest </button>
+
         <button class="inputMore"> Meal Exchange </button>
-        <form>
+        
+        <div id="guestForm" style="display:none;">
           First name: <input id="first_name_in" type="text" name="first_name"/><br>
-          Last name: <input id="last_name_in" type="text" name="last_name"/>
+          Last name: <input id="last_name_in" type="text" name="last_name"/><br>
           Club:  
-          <select name="club"> 
+          <select name="club">
+            <option> --- Choose a club --- </option>
             {% for club in clubs %}
               <option>{{ club }}</option>
             {% endfor %}
-          </select>
-        </form>
+          </select><br>
+          <button id="guestSubmit"> Submit </button><br>
+          <button id="guestCancel"> Cancel </button>
+        </div>
+
+        <button class="hide" style="display:none;"> Hide </button>
+
       </div>
+
     </div>
+
   </body>
+
 </html>

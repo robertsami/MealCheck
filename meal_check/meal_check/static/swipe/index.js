@@ -18,14 +18,58 @@ $.fn.center = function () {
    return this;
 };
 
+function clearInputFields() {
+    $("#first_name_in").val("");
+    $("#last_name_in").val("");
+    $("#guestForm").hide();
+}
+
 $(document).ready( function () {
-    $("#swipe0").center();
+    $(".card").center();
     $("#instructions").center();
     $(".inputMore").click(function() {
         inSwipeForm = true;
         lastTimer.pause();
+        $("#guestForm").css("display", "block");
     });
+    $("#guestSubmit").click(function() {
+        $.ajax({});
+        lastTimer.once();
+        lastTimer.stop();
+        inSwipeForm = false;
+        clearInputFields();
+    });
+    $("#guestCancel").click(function() {
+        lastTimer.once();
+        lastTimer.stop();
+        inSwipeForm = false;
+        clearInputFields();
+    });
+    $(".hide").click(function() {
+        numSwipes++;
+        move("#swipe" + numSwipes).set("left", $(window).width() - $("#swipe" + numSwipes).width()/10 + "px").end();
+
+        activate(numSwipes);
+        deactivate(numSwipes-1);
+
+        clearInputFields();
+        $("#swipe0").hide();
+    })
 });
+
+function activate(cardNum) {
+    $("#swipe" + cardNum).mouseover(function() {
+        move("#swipe" + cardNum).set("left", $(window).width() - $("#swipe" + cardNum).width()/5 + "px").end();
+    });
+    $("#swipe" + cardNum).mouseleave(function() {
+        move("#swipe" + cardNum).set("left", $(window).width() - $("#swipe" + cardNum).width()/10 + "px").end();
+    });
+}
+
+function deactivate(cardNum) {
+    $("#swipe" + (cardNum)).off('mouseover');
+    $("#swipe" + (cardNum)).off('mouseleave');
+}
 
 $(document).keypress(function(event) {
     if (event.keyCode != 13) {
@@ -62,7 +106,29 @@ $(document).keypress(function(event) {
                         lastTimer = $.timer(
                                 function() {
                                     $("#swipe0").css("display", "none");
-                                    move("#swipe" + swipeId).set("left", $(window).width() + "px").end();
+                                    move("#swipe" + swipeId).set("left", $(window).width() - $("#swipe" + swipeId).width()/10 + "px").end();
+                                    
+
+                                    activate(swipeId);
+
+                                    $("#swipe" + swipeId).click(function() {
+                                        numSwipes = swipeId;
+                                        move("#swipe" + numSwipes)
+                                        .set("left", ( $(window).width() - $("#swipe" + numSwipes).width() ) / 2 + "px")
+                                        .end(function () { $("#swipe0").css("display", "block"); });
+
+                                        $("#swipe" + (numSwipes)).off('mouseover');
+                                        $("#swipe" + (numSwipes)).off('mouseleave');
+
+                                        if (numSwipes > 1) {
+                                            activate(numSwipes - 1);
+                                        }
+
+                                        numSwipes--;
+                                    });
+
+                                    $("#swipe" + (swipeId-1)).off('mouseover');
+                                    $("#swipe" + (swipeId-1)).off('mouseleave');
                                 }
                             ).set({ time: 5000, autostart: true});
                         
