@@ -51,9 +51,11 @@ $(document).ready( function () {
 
         activate(numSwipes);
         deactivate(numSwipes-1);
+        inSwipeForm=false;
 
         clearInputFields();
         $("#swipe0").hide();
+        $(".hide").hide();
     })
 });
 
@@ -123,7 +125,7 @@ $(document).keypress(function(event) {
                                         if (numSwipes > 1) {
                                             activate(numSwipes - 1);
                                         }
-
+                                        $(".hide").show();
                                         numSwipes--;
                                     });
 
